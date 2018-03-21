@@ -25,7 +25,6 @@ var Zepto = (function () {
 		return [...new Set(arr)]
 	}
 
-
 	//字符串方法
 	//将-连字符转换为驼峰
 	camelize = function(str) {
@@ -47,25 +46,25 @@ var Zepto = (function () {
 	var class2type = {}
 		toString = class2type.toString 	 		//获取对象原型的toString方法
 
-		//遍历各种数据类型的名称，并将名称映射为小写的类型，最终得到如下形式的class2type
-		// class2type = {
-		//   "[object Boolean]": "boolean",
-		//   "[object Number]": "number"
-		//   ...
-		// } 
-		$.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
-		  	class2type["[object " + name + "]"] = name.toLowerCase()
-		})
-		//ES6实现
-		// var typesStr = 'Boolean Number String Function Array Date RegExp Object Error'
-		// class2type = typesStr.split(' ').map(item => ({
-		// 	[`[object ${item}]`]: item.toLowerCase()
-		// }))
+	//遍历各种数据类型的名称，并将名称映射为小写的类型，最终得到如下形式的class2type
+	// class2type = {
+	//   "[object Boolean]": "boolean",
+	//   "[object Number]": "number"
+	//   ...
+	// } 
+	$.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
+		class2type["[object " + name + "]"] = name.toLowerCase()
+	})
+	//ES6实现
+	// var typesStr = 'Boolean Number String Function Array Date RegExp Object Error'
+	// class2type = typesStr.split(' ').map(item => ({
+	// 	[`[object ${item}]`]: item.toLowerCase()
+	// }))
 
-		//类型检测函数， 如果是null或者undefined，则返回'null'/'undefined'，否则利用对象原型的toString方法判断类型并映射为小写字母
-		type(obj) {
-			return obj == null ? String(obj) : class2type[toString.call(obj)]
-		}
+	//类型检测函数， 如果是null或者undefined，则返回'null'/'undefined'，否则利用对象原型的toString方法判断类型并映射为小写字母
+	function type(obj) {
+		return obj == null ? String(obj) : class2type[toString.call(obj)]
+	}
 	function Z(doms) {
 		//$(选择器)获取到的zepto对象，是个数组，每一项是一个dom元素    还有个length属性
 		var len = doms.length
